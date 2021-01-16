@@ -8,8 +8,8 @@
 3,0,SWLF,I,35,.9,2.3
 7,1,SWRF,I,angle,rot
 7,0,SWRF,I,22,15
-7,0,SWRF,I,12,17
-7,0,SWRF,I,10,19
+8,0,SWRF,I,12,17
+9,0,SWRF,I,10,19
 9,0,SWLF,I,36,1,3
 10,1,Intake,I,speed
 12,0,Intake,I,22

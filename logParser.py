@@ -8,7 +8,6 @@ def parseLogFile(filename):
         # For every line in the file, determine if it is a header and handle appropriately
         for line in f:
             split = line.split(',')
-
             # Ignore commented lines or lines that are too small like empty lines
             if split[0][0] == '#' or len(split) < 4:
                 continue
