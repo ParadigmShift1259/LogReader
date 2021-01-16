@@ -7,6 +7,8 @@ from matplotlib.widgets import Button
 from matplotlib.widgets import RadioButtons
 
 
+flip = True
+
 def plotLogData(data):
     fig2 = plt.figure(constrained_layout=True)
     spec2 = gridspec.GridSpec(ncols=3, nrows=3, figure=fig2)
@@ -35,21 +37,50 @@ def plotLogData(data):
     plt.ylabel("Rotation")
     f2_ax5.plot(data['SWRF']['timestamps'], data['SWRF']['data']['rot'])
 
-    f2_ax5 = fig2.add_subplot(spec2[2, 1])
+    f2_ax6 = fig2.add_subplot(spec2[2, 1])
     plt.xlabel("Time")
     plt.ylabel("Speed")
-    f2_ax4.plot(data['Intake']['timestamps'], data['Intake']['data']['speed'])    
+    f2_ax6.plot(data['Intake']['timestamps'], data['Intake']['data']['speed'])    
 
 
-    axcolor = 'pink'
+
+    axcolor = 'red'
     rax = plt.axes([0.8, 0.1, 0.15, 0.15], facecolor=axcolor)
     radio1 = RadioButtons(rax,('SWLF', 'SWRF', 'Intake'))
 
-    def graphfunc(label):
-        plt.show(f2_ax1)
-    radio1.on_clicked(graphfunc)
+    def func(label):
+        gdict = {'SWLF': 1, 'SWRF': 2, 'Intake': 3}
+
+        if gdict[label] == 1:
+            plt.clf()
+           # plt.close()
+            f2_ax1.plot(data['SWLF']['timestamps'], data['SWLF']['data']['velocity'])
+            f2_ax2.plot(data['SWLF']['timestamps'], data['SWLF']['data']['angle'])
+            f2_ax3.plot(data['SWLF']['timestamps'], data['SWLF']['data']['voltage'])
+            #plt.draw()
+            plt.show()
+        if gdict[label] == 2:
+            plt.clf()
+            #plt.close()
+            f2_ax4.plot(data['SWRF']['timestamps'], data['SWRF']['data']['angle'])  
+            f2_ax5.plot(data['SWRF']['timestamps'], data['SWRF']['data']['rot'])
+            #plt.draw()
+            plt.show()
+ 
+        if gdict[label] == 3:
+            plt.clf()
+            #plt.close()
+            f2_ax6.plot(data['Intake']['timestamps'], data['Intake']['data']['speed']) 
+            #plt.draw()
+            plt.show()
+    radio1.on_clicked(func)
+
+    
     plt.show()
-    wait
+
+        
+
+    
 
     
 
