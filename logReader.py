@@ -8,6 +8,7 @@ from matplotlib.widgets import RadioButtons
 
 
 def plotLogData(data):
+    print(data)
     flip = True
     fig2 = plt.figure(constrained_layout=True)
     spec2 = gridspec.GridSpec(ncols=3, nrows=3, figure=fig2)
@@ -55,6 +56,7 @@ def plotLogData(data):
         else:
             f2_ax1.plot([3,2,1,0])
         print('done')
+        plt.show()
         # gdict = {'SWLF': 1, 'SWRF': 2, 'Intake': 3}
 
         # if gdict[label] == 1:
@@ -80,9 +82,8 @@ def plotLogData(data):
         #     #plt.draw()
         #     plt.show()
     radio1.on_clicked(func)
-
     plt.show()
-    
+
     
 
         
@@ -95,4 +96,3 @@ def plotLogData(data):
 
 nameData = logParser.parseLogFile('testLog.data')
 plotLogData(nameData)
-
