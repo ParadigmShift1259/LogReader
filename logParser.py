@@ -10,6 +10,11 @@ def parseLogFile(filename):
         for line in f:
             split = line.split(',')
             # Ignore commented lines or lines that are too small like empty lines
+            try:
+                float(split[0])
+            except:
+                continue
+
             if split[0][0] == '#' or len(split) < 4:
                 continue
             
@@ -30,7 +35,8 @@ def parseLogFile(filename):
                     nameData[name]['data'][valName] = []
                 nameData[name]['timestamps'] = []
             else: # Handle data line
-                nameData[name]['timestamps'].append(float(split[0]))
-                for valName, val in zip(nameData[name]['header'], split[4:]):
-                    nameData[name]['data'][valName].append(float(val))
+                if name in nameData:
+                    nameData[name]['timestamps'].append(float(split[0]))
+                    for valName, val in zip(nameData[name]['header'], split[4:]):
+                        nameData[name]['data'][valName].append(float(val))
     return nameData
