@@ -81,8 +81,9 @@ def plotLogData(data):
         #     plt.show()
     radio1.on_clicked(func)
 
-    
     plt.show()
+    
+    
 
         
 

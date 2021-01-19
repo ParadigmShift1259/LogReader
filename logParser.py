@@ -1,3 +1,4 @@
+
 def parseLogFile(filename):    
     """Parses a log file and returns a dictionary of name to log data 
     which itself is a dictionary containing timestamps, data and the header
