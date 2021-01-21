@@ -1,3 +1,5 @@
+import glob
+import os
 import sys
 import logParser
 import matplotlib
@@ -78,9 +80,23 @@ def plotLogData(data):
     
     
 
+
 try:
+    # Uses any arguments to determine which file to grab from
     nameData = logParser.parseLogFile(sys.argv[1])
     plotLogData(nameData)
 except:
-    print('Error: Unable to access log file')
-
+    inputFile = input('Error: Unable to access log file. Using latest. Input "z" to cancel.\n')
+    if inputFile != 'z':
+        try:
+            # Creates list of log csv files in the folder
+            listOfFiles = glob.glob('*logfile*.csv')
+            # Grabs latest log file
+            latestFile = max(listOfFiles, key=os.path.getctime)
+            # Uses data of said log file
+            nameData = logParser.parseLogFile(latestFile)
+            plotLogData(nameData)
+        except:
+            print('Error: Unable to access log file')
+    else:
+        pass
