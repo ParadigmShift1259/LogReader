@@ -1,3 +1,4 @@
+import sys
 import logParser
 import matplotlib
 import matplotlib.pyplot as plt
@@ -13,7 +14,6 @@ def plotLogData(data):
     """
     graphs = []
 
-    print(data)
     fig = plt.figure(constrained_layout=True)
     spec = gridspec.GridSpec(ncols=3, nrows=3, figure=fig)
 
@@ -41,7 +41,6 @@ def plotLogData(data):
                 break
             iHeader = keyHeader[headerIndex]
             iData = keyData[iHeader]
-            print(iData)
             graphs[i].plot(nameData[label]['timestamps'], iData)
             graphs[i].set_xlabel('Time')
             graphs[i].set_ylabel(iHeader)
@@ -57,8 +56,8 @@ def plotLogData(data):
         group = max(group - 1, 0)
         plot()
 
-    axprev = plt.axes([0.7, 0.1, 0.1, 0.075])
-    axnext = plt.axes([0.81, 0.1, 0.1, 0.075])
+    axprev = plt.axes([0.75, 0.1, 0.1, 0.075])
+    axnext = plt.axes([0.86, 0.1, 0.1, 0.075])
 
     bnext = Button(axnext, 'Next')
     bprev = Button(axprev, 'Previous')
@@ -70,9 +69,7 @@ def plotLogData(data):
         nonlocal label, group
         group = 0
         label = buttonSelection
-        print(buttonSelection)
         plot()
-        print('done')
         plt.show()
     
     radio1.on_clicked(radioCallback)
@@ -81,7 +78,9 @@ def plotLogData(data):
     
     
 
+try:
+    nameData = logParser.parseLogFile(sys.argv[1])
+    plotLogData(nameData)
+except:
+    print('Error: Unable to access log file')
 
-
-nameData = logParser.parseLogFile('testLog.data')
-plotLogData(nameData)
